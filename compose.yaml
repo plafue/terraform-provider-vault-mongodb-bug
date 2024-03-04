@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  vaultserver:
+    image: hashicorp/vault:1.15
+    ports:
+      - 8200:8200
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: "vault-plaintext-root-token"
+
+  mongodb:
+    image: mongo:3.6.8
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: dummy_secret_testpw
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb/init:/docker-entrypoint-initdb.d
